@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning js</title>
+    <link rel="stylesheet">
+</head>
+<body>
+    <!--<ul>-->
+    <!--    <li>text</li>-->
+    <!--    <li>text</li>-->
+    <!--    <li>text</li>-->
+    <!--</ul>-->
+    <!--<div id = "elem">div text</div>-->
+    <!--<a id = "anchor">a text</a>-->
+    
+     <div id = "parent">
+         <div id = 'red' style = "background-color: red">Red block</div>
+         <div id = 'blue' style = "background-color: blue">Blue block</div>
+         <div id = 'pink' style = "background-color: pink">Pink block</div>
+     </div>
+
+<script>
+
+/*#Class Work
+
+###Задача 1. Создайте страницу. Разместите на ней произвольное количеством 
+элементов. Разработайте сценарий, который будет по очереди перемещать span 
+с текстом и интервалом в 400мс:
+
+Перед элементом.
+Внутри элемента перед тектом
+Внетри элемента после текста.
+После элемента.*/
+
+//   (function(){
+//     var ul = document.getElementsByTagName('ul')[0];
+//     var span = document.createElement('span');
+//     var el = ul.children[0];
+//     span.innerHTML = 'this element';
+        
+//         var interval = setInterval(function(){
+//             ul.insertBefore(span, el);
+//             el = el.nextSibling;
+            
+//             if(el === null){
+//                 el = ul.children[0];
+//             }
+//         }, 400);
+//   })
+   
+   /*###Задача 1.*/
+
+/*Создайте страницу с 3 элементами div. Напишите сценарий, который будет 
+произвольно менять положение этих элементов на странице каждую секунду.*/
+
+(function(){
+    var red = document.getElementById('red').outerHTML;
+    var blue = document.getElementById('blue').outerHTML;
+    var pink = document.getElementById('pink').outerHTML;
+    var parent = document.getElementById("parent");
+    var divArr = [];
+    divArr.push(red, blue, pink);
+
+    setInterval(function() {
+        var html = divArr.sort(function(a, b){return 0.5 - Math.random();}).join('');
+        parent.innerHTML = html;
+    }, 1000);
+})();
+   
+   /*###Задача 2.
+
+Создайте функцию positionAt(anchor, position, elem), которая позиционирует 
+элемент elem, в зависимости от значения аргумента position: 
+сверху ("top"), справа ("right") или снизу ("bottom"). Функция должна 
+проводить позиционирование относительно элемента anchor. 
+Для решения данной задачи Вам понадобится создать элемент anchor (тег а) и 
+elem (тег div).*/
+
+// var div = document.getElementById('elem');
+// var a = document.getElementById('anchor');
+
+// function positionAt(anchor, position, elem){
+//     if(position == "top"){
+//         elem.appendChild(anchor);
+//     }
+//     if(position == "right"){
+//         a.parentNode.insertBefore(elem, anchor);
+//     }
+//     if(position == "bottom"){
+//       anchor.appendChild(elem); 
+//     }
+// }
+
+// positionAt(a, "bottom", div);
+   
+   
+   /*###Задача 3.
+
+Напишите функцию makeBoard, которая генерирует таблицу с указанным количеством 
+строк и столбцов и закрашивает ее ечейки черным и белым цветами в шахматном порядке.*/
+
+// function makeBoard(tr, fields){
+//     var table = document.createElement('table');
+//     for(var i = 1; i < tr + 1; i++){
+//         var tableTr = document.createElement('tr');
+//         for(var j = 1; j < fields + 1; j++){
+//             var tableTd = document.createElement('td');
+//             if((i % 2 !== 0 && j % 2 === 0) || (i % 2 === 0 && j % 2 !== 0)){
+//                 tableTd.style.backgroundColor = "black";
+//             }
+//             tableTr.appendChild(tableTd);
+//         }
+//         table.appendChild(tableTr);
+//     }
+//     table.style.width = "200px";
+//     table.style.height = "200px";
+//     document.body.insertBefore(table, document.body.firstChild);
+// }
+
+// makeBoard(7, 7);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning js</title>
+      <style>
+
+    #matrix {
+      width: 400px;
+      margin: auto;
+      overflow: auto;
+      text-align: justify;
+    }
+
+    #updown {
+      height: 9px;
+      width: 14px;
+      color: green;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      cursor: pointer;
+    }
+
+    #updown.up::before {
+      content: '▲';
+    }
+
+    #updown.down::before {
+      content: '▼';
+    }
+    #block {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+    }
+    
+    #discount {
+      width:50px;
+      height:50px;
+      background: red;
+      border-radius:50%;
+      position: absolute;
+      transition: ease 0.2s;
+    }
+
+  </style>
+</head>
+<body>
+  <!--  <input type="text"/>-->
+  <!--  <input type="text" id = "cord1"/>-->
+  <!--  <input type="text" id = "cord2"/>-->
+  <!--  <div id = "block"></div>-->
+  <!--  <button id = "move">Переместить</button>-->
+  <!--  <ul>-->
+  <!--    <li>text1</li>-->
+  <!--    <li>text2</li>-->
+  <!--    <li>text3</li>-->
+  <!--    <li>text4</li>-->
+  <!--  </ul>-->
+  <!--  <p id="output"></p>-->
+  <!--  <div id="matrix">-->
+  <!--   <script>-->
+  <!--    for (var i = 0; i < 3000; i++) document.writeln(i)-->
+  <!--  </script>-->
+
+  <!--</div>-->
+
+  <!--<div id="updown"></div>-->
+  
+  <div id="discount">Discount</div>
+    
+<script type="text/javascript">
+// #Class Work
+
+// ###Задача 1.
+
+// Создайте страницу. Реализуйте следующее:
+
+// При нажатии комбинации клавиш ctrl + a (регистр не учитывается!) на экран выводится сообщение ‘Данные выбраны’;
+// При нажатии комбинации клавиш ctrl + s (регистр не учитывается!) на экран выводится сообщение ‘Данные сохранены’;
+// ###Задача 2.
+
+// document.onkeydown = function(e){
+//         if(e.ctrlKey && e.keyCode == 65) alert('Данные выбраны');
+//         if(e.ctrlKey && e.keyCode == 83) alert('Данные сохранены');
+// };
+
+
+// Создайте кнопку навигации, которая помогает при прокрутке страницы. Работать должна следующим образом:
+
+// Пока страница промотана меньше чем на высоту экрана вниз – кнопка не видна.
+// При промотке страницы вниз больше, чем на высоту экрана, появляется кнопка «стрелка вверх».
+// При нажатии на нее страница прыгает вверх, но не только. Дополнительно, кнопка 
+// меняется на «стрелка вниз» и при клике возвратит на старое место. 
+// Если же в этом состоянии посетитель сам прокрутит вниз больше, 
+// чем один экран, то она вновь изменится на «стрелка вверх». Должен получиться 
+// удобный навигационный помощник.
+
+// var updownElem = document.getElementById('updown');
+
+//     var pageYLabel = 0;
+
+//     updownElem.onclick = function() {
+//       var pageY = window.pageYOffset || document.documentElement.scrollTop;
+
+//       switch (this.className) {
+//         case 'up':
+//           pageYLabel = pageY;
+//           window.scrollTo(0, 0);
+//           this.className = 'down';
+//           break;
+
+//         case 'down':
+//           window.scrollTo(0, pageYLabel);
+//           this.className = 'up';
+//       }
+
+//     }
+
+//     window.onscroll = function() {
+//       var pageY = window.pageYOffset || document.documentElement.scrollTop;
+//       var innerHeight = document.documentElement.clientHeight;
+
+//       switch (updownElem.className) {
+//         case '':
+//           if (pageY > innerHeight) {
+//             updownElem.className = 'up';
+//           }
+//           break;
+
+//         case 'up':
+//           if (pageY < innerHeight) {
+//             updownElem.className = '';
+//           }
+//           break;
+
+//         case 'down':
+//           if (pageY > innerHeight) {
+//             updownElem.className = 'up';
+//           }
+//           break;
+
+//       }
+//     }
+
+// ###Задача 3.
+
+// Создайте поле ввода. При помощи событий клавиатуры сделайте так, чтобы в поле можно было вводить только цифры.
+    
+    // document.getElementsByTagName('input')[0].onkeypress = function(e) {
+    //   return e.charCode >=48 && e.charCode <= 57;
+    //   // e = e || event;
+    //   // if (e.ctrlKey || e.altKey || e.metaKey) return;
+    //   // var chr = getChar(e);
+    //   // if (chr == null) return;
+
+    //   // if (chr < '0' || chr > '9') {
+    //   //   return false;
+    //   // }
+    // }
+    // function getChar(event) {
+    //   if (event.which == null) {
+    //     if (event.keyCode < 32) return null;
+    //     return String.fromCharCode(event.keyCode) 
+    //     }
+    //   if (event.which != 0 && event.charCode != 0) {
+    //     if (event.which < 32) return null;
+    //     return String.fromCharCode(event.which) 
+    //   }
+    //   return null; 
+    // }
+    
+    
+    
+//     #Homework
+
+// Задача 1.
+
+// Сделайте список, элементы которого можно выделять кликом. 
+// Используйте для решения данной задачи свойство e.target.
+
+// var ul = document.querySelector('ul');
+
+//     ul.onclick = function(event) {
+//       var target = event.target;
+//       if (target.tagName != "LI") return;
+//       target.style.background = "red";
+
+// }
+
+/*Задача 2.
+
+Создайте круг красного цвета с надписью "Скидка". Когда курсор пользователя 
+будет приближаться к ней, "Скидка" должна от него "убегать", не давая
+пользователю нажать на красный круг. Если круг будет выйдет за одну из сторон
+экрана, то он должен, появится с противоположной стороны.*/
+
+document.getElementById('discount').addEventListener('mouseenter', function(e) {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  var left = getRandomInt(0, window.innerWidth);
+  var top = getRandomInt(0, window.innerHeight);
+  left = left > window.innerWidth - this.offsetWidth ? 0 : left;
+  top = top > window.innerHeight - this.offsetHeight ? 0 : top;
+  this.style.left = left + 'px';
+  this.style.top = top + 'px';
+});
+/*Задача 3.
+
+Создайте страницу с двумя полями ввода, кнопкой и элементом div с шириной и 
+высотой 50px. Создайте сценарий, который по нажатию на кнопку будет перемещать 
+div в координаты, указанные в полях ввода. В случае, если при нажатии кнопки 
+хотя бы одно из полей ввода не заполнено, пользователь должен получить 
+предупреждение, а событие click должно быть отменено.*/
+
+// var button = document.getElementById("move");
+// var cord1 = document.getElementById("cord1");
+// var cord2 = document.getElementById("cord2");
+// var div = document.getElementById("block");
+
+// button.addEventListener("click", function(e){
+//   var cordX = +cord1.value;
+//   var cordY = +cord2.value;
+//   if (!cordX || !cordY) {
+//     alert ("Вы не ввели одну с координат, или ввели текст");
+//     return;
+//   }
+//   div.style.left = cordX + "px";
+//   div.style.top = cordY + "px";
+// })
+</script>
+</body>
+</html>

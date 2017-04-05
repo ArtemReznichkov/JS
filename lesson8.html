@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning js</title>
+    <link rel="stylesheet">
+    <style type="text/css">
+    /*div {*/
+    /*    width: 100px;*/
+    /*    height: 100px;*/
+    /*    background-color: green;*/
+    /*    float: left;*/
+    /*    margin-right: 10px;*/
+    /*    }*/
+    </style>
+</head>
+<body>
+    <!--<div></div>-->
+    <!--<div></div>-->
+    <!--<div></div>-->
+    <!--<div></div>-->
+    <!--<div></div>-->
+    <!--<input type="submit" name="Button" id = "btn"/>-->
+    
+        <!--задачка 2 class-->
+    <input type="text" name="" id = "int"/>
+    <input type="button" name="" id = "btn" value = "Push"/>
+    <div id = "block"></div>
+    
+        <!--задачка 1 home-->
+    <input type="text" name="" id = "log"/>
+    <input type="text" name="" id = "password"/>
+    <input type="text" name="" id = "tel"/>
+    <input type="submit" name="Button" id = "btn"/>
+    <div id = "block"></div>
+    
+    <button data-tooltip="подсказка длиннее, чем элемент">Короткая кнопка</button>
+    <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
+    
+        <!--lesson 8 hw task 3-->
+    <input type="text" id="value1"/>
+    <input type="text" id="value2"/>
+    
+    <input type="button" class="btn" value = "+" data-action = "+"/>
+    <input type="button" class="btn" value = "-" data-action = "-"/>
+    <input type="button" class="btn" value = "*" data-action = "*"/>
+    <input type="button" class="btn" value = "/" data-action = "/"/>
+
+<script>
+// Class Work
+
+// Задача 1.
+
+// Создайте страницу. Разместите на странице 5 элементов div и кнопку. Создайте 
+// CSS файл, определите в файле правила, которые зададут всем дивам следующее 
+// оформление – высота и ширина 100 px, float=left и зеленый цвет фона. Создайте 
+// сценарий, который будет обрабатывать нажатие по кнопке и менять цвет одного из 
+// дивов на красный. Смена цвета должна происходить циклически, при первом нажатии 
+// первый div становиться красный остальные остаются зелеными, при нажатии на 
+// второй – все div становятся зелеными, а второй красный и т.д.
+
+window.onload = function () {
+    var divs = document.querySelectorAll("div");
+    var button = document.getElementById('btn');
+    var count = 0;
+            button.addEventListener("click",
+                function () {
+                    if(divs[divs.length - 1].style.backgroundColor == "red"){
+                      divs[divs.length - 1].style.backgroundColor = "green"; 
+                    }
+                    divs[count].style.backgroundColor = "red";
+                    if(count > 0){
+                    divs[count - 1].style.backgroundColor = "green";
+                    } 
+
+                    count++;
+                    if(count === divs.length ){
+                      count = 0;
+                    }
+                });
+};
+
+// Задача 2.
+
+// Создайте страницу. Разместите на странице поле ввода, кнопку и пустой div.
+// Создайте сценарий, который при нажатии на кнопку будет записывать содержимое 
+// поля ввода в пустой div.
+
+window.onload = function () {
+    var div = document.getElementById("block");
+    var button = document.getElementById('btn');
+    var inputText = document.getElementById('int');
+            button.addEventListener("click",
+                function () {
+                    div.innerHTML = inputText.value;
+                });
+};
+
+// Homework
+
+// Задача 1.
+
+// Создайте регистрационную форму: логин, пароль, телефон и кнопка "Отправить". 
+// По нажатию на кнопку "Отправить", проверьте корректность ввода данных с 
+// помощью JavaScript.
+
+// Логин - не должен содержать цифры.
+// Пароль - не дожен содержать знак $.
+// Телефон - должен содержать только цифры.
+// Закрасьте фон поля ввода в красный цвет, если были введены неправильные данные.
+
+// Используйте для решение данной задачи методы для работы со строками или 
+// регулярные выражения: link
+
+window.onload = function () {
+    var div = document.getElementById("block");
+    var button = document.getElementById('btn');
+    var login = document.getElementById('log');
+    var pass = document.getElementById('password');
+    var tel = document.getElementById('tel');
+    var regnumb = /\d/;
+    var regstr = /\D/;
+            button.addEventListener("click",
+                function () {
+                    if(login.value.search(regnumb) !== -1){
+                        login.style.backgroundColor = 'red';
+                        div.innerHTML = "Login can not contain digits";
+                    }
+                    if(pass.value.indexOf('$') !== -1){
+                        pass.style.backgroundColor = 'red';
+                        div.innerHTML = "Login can not contain $";
+                    }
+                    if(tel.value.search(regstr) !== -1){
+                        tel.style.backgroundColor = 'red';
+                        div.innerHTML = "Login can not contain letters";
+                    }
+                });
+};
+
+
+// Задача 2.
+
+// При наведении мыши на элемент, на нём возникает событие mouseover, 
+// при удалении мыши с элемента – событие mouseout. Зная это, напишите JS-код, 
+// который будет делать так, что при наведении на элемент, если у него есть атрибут
+// data-tooltip – над ним будет показываться подсказка с содержимым этого атрибута. 
+// Например, две кнопки:
+
+// <button data-tooltip="подсказка длиннее, чем элемент">Короткая кнопка</button>
+// <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
+
+    var showingTooltip;
+
+    document.onmouseover = function(e) {
+      var target = e.target;
+
+      var tooltip = target.getAttribute('data-tooltip');
+      if (!tooltip) return;
+
+      var tooltipElem = document.createElement('div');
+      tooltipElem.className = 'tooltip';
+      tooltipElem.innerHTML = tooltip;
+      document.body.appendChild(tooltipElem);
+
+
+      showingTooltip = tooltipElem;
+      };
+
+      document.onmouseout = function(e) {
+
+      if (showingTooltip) {
+        document.body.removeChild(showingTooltip);
+        showingTooltip = null;
+      }
+
+    };
+
+// Задача 3.
+
+// Создайте страницу-калькулятор. Разместите на странице два поля ввода и кнопки 
+// для арифметических операций над данными введенными в поля ввода. Реализуйте
+// данную страницу двумя способами – с использованием модели DOM Level 0 
+// (через атрибуты) и DOM Level 2.
+
+
+
+  document.addEventListener('click', function(e){
+    var target = e.target;
+    var value1 = +document.getElementById("value1").value;
+    var value2 = +document.getElementById("value2").value;
+    var result = document.getElementById("result");
+    var action = target.getAttribute('data-action');
+    if(!target.hasAttribute('data-action')) return;
+    if(!value1 || !value2){
+        result.innerHTML = "input only numbers";
+    }
+    switch (action) {
+        case '+': result.innerHTML = value1 + value2;
+          break;
+        case '-': result.innerHTML = value1 - value2;
+          break;
+        case '*': result.innerHTML = value1 * value2;
+          break;
+        case '/': result.innerHTML = value1 / value2;
+          break;
+    }
+    });
+
+document.onclick = function(e){
+    var target = e.target;
+    var value1 = +document.getElementById("value1").value;
+    var value2 = +document.getElementById("value2").value;
+    var result = document.getElementById("result");
+    var action = target.getAttribute('data-action');
+    if(!target.hasAttribute('data-action')) return;
+    if(!value1 || !value2){
+        result.innerHTML = "input only numbers";
+    }
+    switch (action) {
+        case '+': result.innerHTML = value1 + value2;
+          break;
+        case '-': result.innerHTML = value1 - value2;
+          break;
+        case '*': result.innerHTML = value1 * value2;
+          break;
+        case '/': result.innerHTML = value1 / value2;
+          break;
+    }
+
+}
+
+
+
+</script>
+
+</body>
+</html>
