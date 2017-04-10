@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <button onclick="loadPhones()">Загрузить</button>
+
+    <script>
+        function loadPhones() {
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'task_phone/phones.json', true);
+
+            xhr.send();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) return;
+
+                button.parentNode.removeChild(button);
+
+                if (xhr.status != 200) {
+                    
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                    try {
+                        var phones = JSON.parse(xhr.responseText);
+                    } catch (e) {
+                        alert("Некорректный ответ " + e.message);
+                    }
+                    showPhones(phones);
+                }
+
+            }
+
+            button.innerHTML = 'Загружаю...';
+            button.disabled = true;
+        }
+
+        function showPhones(phones) {
+
+            phones.forEach(function (phone) {
+                var li = list.appendChild(document.createElement('li'));
+                li.innerHTML = phone.name;
+            });
+
+        }
+    </script>
+</body>
+</html>
